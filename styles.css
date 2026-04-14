@@ -1,1 +1,183 @@
-/* Add Global styles here */
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0A2540, #1E3A5F);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+header {
+    background: linear-gradient(90deg, #0A2540, #1E3A5F);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    color: #BFE9FF; /* Baby Blue */
+}
+
+/* ===== Main Container ===== */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ===== Scoreboard ===== */
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    max-width: 90%;
+    margin-bottom: 15px;
+    background: rgba(230, 247, 255, 0.1);
+    border: 1px solid #4DA8DA;
+    border-radius: 12px;
+    padding: 15px 30px;
+    backdrop-filter: blur(10px);
+}
+
+.player {
+    text-align: center;
+}
+
+.player h2 {
+    font-size: 1.2rem;
+    color: #BFE9FF;
+}
+
+.score {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* ===== Game Arena ===== */
+.game-area {
+    position: relative;
+    width: 800px;
+    max-width: 90%;
+    height: 400px;
+    background: #E6F7FF; /* Light Blue */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border: 4px solid #4DA8DA;
+}
+
+/* Center dashed line */
+.center-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        #4DA8DA,
+        #4DA8DA 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+/* Paddles */
+.paddle {
+    position: absolute;
+    width: 12px;
+    height: 80px;
+    background: #1E3A5F;
+    border-radius: 6px;
+}
+
+.paddle.left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.paddle.right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Ball */
+.ball {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #4DA8DA;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(77, 168, 218, 0.8);
+}
+
+/* ===== Control Buttons ===== */
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls button {
+    background: #4DA8DA;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controls button:hover {
+    background: #BFE9FF;
+    color: #0A2540;
+    transform: translateY(-2px);
+}
+
+/* ===== Instructions ===== */
+.instructions {
+    margin-top: 20px;
+    width: 600px;
+    max-width: 90%;
+    background: rgba(191, 233, 255, 0.15);
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid #4DA8DA;
+    text-align: center;
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+    color: #BFE9FF;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #0A2540;
+    color: #BFE9FF;
+    font-size: 0.9rem;
+}
