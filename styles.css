@@ -173,11 +173,5 @@ header h1 {
     color: #BFE9FF;
 }
 
-/* ===== Footer ===== */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #0A2540;
-    color: #BFE9FF;
-    font-size: 0.9rem;
+
 }
