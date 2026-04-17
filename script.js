@@ -62,3 +62,55 @@ resetBtn.addEventListener("click", () => {
 });
 
 window.addEventListener("load", resetBall);
+
+
+const paddleLeft = document.getElementById("paddleLeft");
+const paddleRight = document.getElementById("paddleRight");
+
+let leftPaddleY = gameArea.clientHeight / 2 - paddleLeft.offsetHeight / 2;
+let rightPaddleY = gameArea.clientHeight / 2 - paddleRight.offsetHeight / 2;
+
+const paddleSpeed = 20;
+
+let keys = {};
+
+document.addEventListener("keydown", (e) => {
+    keys[e.key.toLowerCase()] = true;
+});
+
+document.addEventListener("keyup", (e) => {
+    keys[e.key.toLowerCase()] = false;
+});
+
+function movePaddles() {
+    const areaHeight = gameArea.clientHeight;
+    const paddleHeight = paddleLeft.offsetHeight;
+
+    if (keys["w"] && leftPaddleY > 0) {
+        leftPaddleY -= paddleSpeed;
+    }
+    if (keys["s"] && leftPaddleY + paddleHeight < areaHeight) {
+        leftPaddleY += paddleSpeed;
+    }
+
+    if (keys["arrowup"] && rightPaddleY > 0) {
+        rightPaddleY -= paddleSpeed;
+    }
+    if (keys["arrowdown"] && rightPaddleY + paddleHeight < areaHeight) {
+        rightPaddleY += paddleSpeed;
+    }
+
+    paddleLeft.style.top = leftPaddleY + "px";
+    paddleRight.style.top = rightPaddleY + "px";
+}
+
+function gameLoop() {
+    moveBall();
+    movePaddles();
+}
+
+startBtn.addEventListener("click", () => {
+    if (!gameInterval) {
+        gameInterval = setInterval(gameLoop, 16);
+    }
+});
