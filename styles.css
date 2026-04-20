@@ -1,4 +1,3 @@
-/* ===== Global Styles ===== */
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +13,6 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Header ===== */
 header {
     background: linear-gradient(90deg, #0A2540, #1E3A5F);
     padding: 20px;
@@ -25,10 +23,9 @@ header {
 header h1 {
     font-size: 2.5rem;
     letter-spacing: 2px;
-    color: #BFE9FF; /* Baby Blue */
+    color: #BFE9FF;
 }
 
-/* ===== Main Container ===== */
 .container {
     flex: 1;
     display: flex;
@@ -37,7 +34,6 @@ header h1 {
     padding: 20px;
 }
 
-/* ===== Scoreboard ===== */
 .scoreboard {
     display: flex;
     justify-content: space-between;
@@ -48,45 +44,34 @@ header h1 {
     border: 1px solid #4DA8DA;
     border-radius: 12px;
     padding: 15px 30px;
-    backdrop-filter: blur(10px);
 }
 
 .player {
     text-align: center;
 }
 
-.player h2 {
-    font-size: 1.2rem;
-    color: #BFE9FF;
-}
-
 .score {
     font-size: 2.5rem;
     font-weight: bold;
-    margin-top: 5px;
 }
 
-/* ===== Game Arena ===== */
 .game-area {
     position: relative;
     width: 800px;
     max-width: 90%;
     height: 400px;
-    background: #E6F7FF; /* Light Blue */
+    background: #E6F7FF;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     border: 4px solid #4DA8DA;
 }
 
-/* Center dashed line */
 .center-line {
     position: absolute;
-    top: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 4px;
     height: 100%;
+    transform: translateX(-50%);
     background: repeating-linear-gradient(
         to bottom,
         #4DA8DA,
@@ -96,7 +81,6 @@ header h1 {
     );
 }
 
-/* Paddles */
 .paddle {
     position: absolute;
     width: 12px;
@@ -117,26 +101,18 @@ header h1 {
     transform: translateY(-50%);
 }
 
-/* Ball */
 .ball {
     position: absolute;
     width: 18px;
     height: 18px;
     background: #4DA8DA;
     border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(77, 168, 218, 0.8);
 }
 
-/* ===== Control Buttons ===== */
 .controls {
     margin-top: 20px;
     display: flex;
     gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 .controls button {
@@ -145,31 +121,12 @@ header h1 {
     padding: 12px 20px;
     border-radius: 8px;
     color: white;
-    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.controls button:hover {
-    background: #BFE9FF;
-    color: #0A2540;
-    transform: translateY(-2px);
-}
-
-/* ===== Instructions ===== */
 .instructions {
     margin-top: 20px;
     width: 600px;
     max-width: 90%;
-    background: rgba(191, 233, 255, 0.15);
-    padding: 15px 20px;
-    border-radius: 12px;
-    border: 1px solid #4DA8DA;
     text-align: center;
 }
-
-.instructions h3 {
-    margin-bottom: 10px;
-    color: #BFE9FF;
-}
-
