@@ -27,8 +27,10 @@ let gameRunning = false;
 const paddleSpeed = 12;
 const paddleHeight = 80;
 const ballSize = 18;
-const gameWidth = 800;
-const gameHeight = 400;
+
+let gameWidth = 800;
+let gameHeight = 400;
+let paddleWidth = 12;
 
 let keys = {
     w: false,
@@ -36,6 +38,13 @@ let keys = {
     ArrowUp: false,
     ArrowDown: false
 };
+
+function updateMetrics() {
+    gameWidth = gameArea.clientWidth;
+    gameHeight = gameArea.clientHeight;
+    paddleWidth = paddleLeft.clientWidth;
+}
+
 
 document.addEventListener("keydown", function (e) {
     if (["ArrowUp", "ArrowDown"].includes(e.key)) {
@@ -69,11 +78,25 @@ function movePaddle(side, dir) {
 }
 
 function resetBall() {
-    ballX = 391;
-    ballY = 191;
+    updateMetrics();
+
+    ballX = (gameWidth - ballSize) / 2;
+    ballY = (gameHeight - ballSize) / 2;
 
     ballSpeedX = baseSpeed * (Math.random() > 0.5 ? 1 : -1);
     ballSpeedY = baseSpeed * (Math.random() > 0.5 ? 1 : -1);
+}
+
+function initGame() {
+    updateMetrics();
+
+    leftY = rightY = (gameHeight - paddleHeight) / 2;
+    paddleLeft.style.top = leftY + "px";
+    paddleRight.style.top = rightY + "px";
+
+    resetBall();
+    ball.style.left = ballX + "px";
+    ball.style.top = ballY + "px";
 }
 
 function speedUp() {
@@ -94,33 +117,46 @@ function updateBall() {
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
-    if (ballY <= 0 || ballY >= gameHeight - ballSize) {
+    updateMetrics();
+
+    if (ballY <= 0) {
+        ballY = 0;
         ballSpeedY *= -1;
     }
 
+    if (ballY + ballSize >= gameHeight) {
+        ballY = gameHeight - ballSize;
+        ballSpeedY *= -1;
+    }
+
+    const leftPaddleRight = 20 + paddleWidth;
+    const rightPaddleLeft = gameWidth - 20 - paddleWidth;
+
     if (
         ballSpeedX < 0 &&
-        ballX <= 32 &&
-        ballY + ballSize >= leftY &&
-        ballY <= leftY + paddleHeight
+        ballX <= leftPaddleRight &&
+        ballX + ballSize >= 20 &&
+        ballY + ballSize > leftY &&
+        ballY < leftY + paddleHeight
     ) {
-        ballX = 32;
+        ballX = leftPaddleRight;
         ballSpeedX *= -1;
         speedUp();
     }
 
     if (
         ballSpeedX > 0 &&
-        ballX + ballSize >= gameWidth - 32 &&
-        ballY + ballSize >= rightY &&
-        ballY <= rightY + paddleHeight
+        ballX + ballSize >= rightPaddleLeft &&
+        ballX <= gameWidth - 20 &&
+        ballY + ballSize > rightY &&
+        ballY < rightY + paddleHeight
     ) {
-        ballX = gameWidth - 32 - ballSize;
+        ballX = rightPaddleLeft - ballSize;
         ballSpeedX *= -1;
         speedUp();
     }
 
-    if (ballX < 0) {
+    if (ballX + ballSize < 0) {
         scores[1]++;
         score2.textContent = scores[1];
         resetBall();
@@ -166,8 +202,8 @@ resetBtn.onclick = function () {
     score1.textContent = 0;
     score2.textContent = 0;
 
-    leftY = 160;
-    rightY = 160;
+    updateMetrics();
+    leftY = rightY = (gameHeight - paddleHeight) / 2;
 
     paddleLeft.style.top = leftY + "px";
     paddleRight.style.top = rightY + "px";
@@ -177,3 +213,5 @@ resetBtn.onclick = function () {
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
 };
+
+initGame();

@@ -91,14 +91,12 @@ header h1 {
 
 .paddle.left {
     left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 160px;
 }
 
 .paddle.right {
     right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 160px;
 }
 
 .ball {
