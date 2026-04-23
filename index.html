@@ -40,25 +40,47 @@ including baby blue, light blue, and dark navy tones.
         </div>
     </div>
 
-    <div class="game-area" id="gameArea">
-        <div class="center-line"></div>
-        <div class="paddle left" id="paddleLeft"></div>
-        <div class="paddle right" id="paddleRight"></div>
-        <div class="ball" id="ball"></div>
+    <div class="mode-switcher">
+        <button id="regularModeBtn">Regular Mode</button>
+    </div>
+
+    <div class="game-container">
+        <div class="game-area" id="gameArea">
+            <div class="center-line"></div>
+            <div class="paddle left" id="paddleLeft"></div>
+            <div class="paddle right" id="paddleRight"></div>
+            <div class="ball" id="ball"></div>
+        </div>
+
+        <div class="difficulty-panel" id="difficultyPanel">
+            <button class="back-btn" id="backToRegularBtn">Back to Regular Mode</button>
+            <h3>Difficulty</h3>
+            <button class="diff-btn" id="easyBtn">Easy</button>
+            <button class="diff-btn" id="mediumBtn">Medium</button>
+            <button class="diff-btn" id="hardBtn">Hard</button>
+        </div>
     </div>
 
     <div class="controls">
         <button id="startBtn">Start Game</button>
         <button id="pauseBtn">Pause</button>
         <button id="resetBtn">Reset</button>
+        <div class="modes-container">
+            <button id="moreModesBtn">More Modes</button>
+            <div class="modes-box" id="modesBox">
+                <button class="mode-btn" id="vsAiBtn">VS AI</button>
+                <button class="mode-btn" id="twoBallsBtn">Two Balls</button>
+                <button class="mode-btn" id="curveBallBtn">Curve Ball</button>
+                <button class="mode-btn" id="rainbowBtn">Rainbow Pong</button>
+            </div>
+        </div>
     </div>
 
     <div class="instructions">
         <h3>How to Play</h3>
-        <p>
-            Player 1 uses the <strong>W</strong> and <strong>S</strong> keys to move,
-            while Player 2 uses the <strong>Up</strong> and <strong>Down</strong>
-            arrow keys.
+        <p id="instructionsText">
+            Use <strong>W</strong> and <strong>S</strong> keys (or <strong>Up/Down</strong> arrows) to move your paddle.
+            Beat the AI by scoring more points!
         </p>
     </div>
 

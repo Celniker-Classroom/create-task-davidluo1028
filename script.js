@@ -9,6 +9,16 @@ const score2 = document.getElementById("score2");
 const startBtn = document.getElementById("startBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const resetBtn = document.getElementById("resetBtn");
+const moreModesBtn = document.getElementById("moreModesBtn");
+const modesBox = document.getElementById("modesBox");
+const vsAiBtn = document.getElementById("vsAiBtn");
+const difficultyPanel = document.getElementById("difficultyPanel");
+const easyBtn = document.getElementById("easyBtn");
+const mediumBtn = document.getElementById("mediumBtn");
+const hardBtn = document.getElementById("hardBtn");
+const regularModeBtn = document.getElementById("regularModeBtn");
+const instructionsText = document.getElementById("instructionsText");
+const backToRegularBtn = document.getElementById("backToRegularBtn");
 
 let scores = [0, 0];
 
@@ -38,6 +48,32 @@ let keys = {
     ArrowUp: false,
     ArrowDown: false
 };
+
+function resetGame() {
+    gameRunning = false;
+    scores = [0, 0];
+    score1.textContent = 0;
+    score2.textContent = 0;
+    updateMetrics();
+    leftY = rightY = (gameHeight - paddleHeight) / 2;
+    paddleLeft.style.top = leftY + "px";
+    paddleRight.style.top = rightY + "px";
+    resetBall();
+    ball.style.left = ballX + "px";
+    ball.style.top = ballY + "px";
+}
+
+function selectDifficulty(diff) {
+    difficulty = diff;
+    // Remove selected from all
+    document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('selected'));
+    // Add to current
+    if (diff === 'easy') easyBtn.classList.add('selected');
+    else if (diff === 'medium') mediumBtn.classList.add('selected');
+    else if (diff === 'hard') hardBtn.classList.add('selected');
+    // Reset game
+    resetGame();
+}
 
 function updateMetrics() {
     gameWidth = gameArea.clientWidth;
@@ -172,13 +208,43 @@ function updateBall() {
     ball.style.top = ballY + "px";
 }
 
+function aiMove() {
+    // Miss chance
+    let missChance = 0.3; // medium default
+    if (difficulty === 'easy') missChance = 0.5;
+    if (difficulty === 'hard') missChance = 0.15;
+
+    if (Math.random() < missChance) return; // miss this opportunity
+
+    let aiSpeed = paddleSpeed; // same as player
+
+    // Simple AI: move towards ball's y position
+    let targetY = ballY + ballSize / 2 - paddleHeight / 2;
+
+    // Clamp target
+    targetY = Math.max(0, Math.min(gameHeight - paddleHeight, targetY));
+
+    if (rightY < targetY - 5) {
+        movePaddle("right", 1);
+    } else if (rightY > targetY + 5) {
+        movePaddle("right", -1);
+    }
+}
+
 function loop() {
     if (!gameRunning) return;
 
     if (keys.w) movePaddle("left", -1);
     if (keys.s) movePaddle("left", 1);
-    if (keys.ArrowUp) movePaddle("right", -1);
-    if (keys.ArrowDown) movePaddle("right", 1);
+
+    if (mode === 'pvp') {
+        if (keys.ArrowUp) movePaddle("right", -1);
+        if (keys.ArrowDown) movePaddle("right", 1);
+    } else {
+        if (keys.ArrowUp) movePaddle("left", -1);
+        if (keys.ArrowDown) movePaddle("left", 1);
+        aiMove();
+    }
 
     updateBall();
     requestAnimationFrame(loop);
@@ -196,22 +262,52 @@ pauseBtn.onclick = function () {
 };
 
 resetBtn.onclick = function () {
-    gameRunning = false;
-
-    scores = [0, 0];
-    score1.textContent = 0;
-    score2.textContent = 0;
-
-    updateMetrics();
-    leftY = rightY = (gameHeight - paddleHeight) / 2;
-
-    paddleLeft.style.top = leftY + "px";
-    paddleRight.style.top = rightY + "px";
-
-    resetBall();
-
-    ball.style.left = ballX + "px";
-    ball.style.top = ballY + "px";
+    resetGame();
 };
 
+moreModesBtn.onclick = function () {
+    modesBox.classList.toggle("show");
+};
+
+vsAiBtn.onclick = function () {
+    mode = 'ai';
+    modesBox.classList.remove("show");
+    difficultyPanel.classList.add("show");
+    selectDifficulty('medium'); // Default to medium
+    updateInstructions();
+};
+
+easyBtn.onclick = function () {
+    selectDifficulty('easy');
+};
+
+mediumBtn.onclick = function () {
+    selectDifficulty('medium');
+};
+
+hardBtn.onclick = function () {
+    selectDifficulty('hard');
+};
+
+regularModeBtn.onclick = function () {
+    mode = 'pvp';
+    difficultyPanel.classList.remove("show");
+    updateInstructions();
+};
+
+backToRegularBtn.onclick = function () {
+    mode = 'pvp';
+    difficultyPanel.classList.remove("show");
+    updateInstructions();
+};
+
+function updateInstructions() {
+    if (mode === 'ai') {
+        instructionsText.textContent = "Use W and S keys (or Up/Down arrows) to move your paddle. Beat the AI by scoring more points!";
+    } else {
+        instructionsText.textContent = "Player 1 uses W and S keys to move, while Player 2 uses Up and Down arrow keys.";
+    }
+}
+
 initGame();
+updateInstructions();
