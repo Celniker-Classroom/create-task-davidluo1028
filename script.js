@@ -210,9 +210,9 @@ function updateBall() {
 
 function aiMove() {
     // Miss chance
-    let missChance = 0.4; // medium default
+    let missChance = 0.55; // medium default
     if (difficulty === 'easy') missChance = 0.8;
-    if (difficulty === 'hard') missChance = 0.15;
+    if (difficulty === 'hard') missChance = 0.25;
 
     if (Math.random() < missChance) return; // miss this opportunity
 
